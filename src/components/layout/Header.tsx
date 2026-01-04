@@ -8,7 +8,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
-import { useAlbumStore } from '@/stores/albumStore';
+import { useAlbumStore, useProgress } from '@/stores/albumStore';
 import { ProgressBar } from '@/components/ui/progress-ring';
 import {
   BookOpen,
@@ -42,11 +42,10 @@ const navItems = [
 export function Header() {
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const progress = useAlbumStore((state) => state.getProgress());
+  const progress = useProgress();
   const connectedAddress = useAlbumStore((state) => state.connectedAddress);
   const setConnectedAddress = useAlbumStore((state) => state.setConnectedAddress);
 
-  // Mock wallet connection for demo
   const handleConnect = () => {
     const mockAddress = '0x1234...5678';
     setConnectedAddress(mockAddress);
