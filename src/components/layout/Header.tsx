@@ -1,6 +1,6 @@
 /**
  * Main Navigation Header Component
- * Responsive navigation with wallet connection
+ * Responsive navigation with real RainbowKit wallet connection
  */
 
 import { useState } from 'react';
@@ -8,7 +8,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
-import { useAlbumStore, useProgress } from '@/stores/albumStore';
+import { useProgress } from '@/stores/albumStore';
 import { ProgressBar } from '@/components/ui/progress-ring';
 import {
   BookOpen,
@@ -19,15 +19,9 @@ import {
   History,
   Menu,
   X,
-  Wallet,
-  ChevronDown,
 } from 'lucide-react';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+import { ConnectButton } from '@rainbow-me/rainbowkit';
+import { useAccount } from 'wagmi';
 
 const navItems = [
   { path: '/', label: 'Home', icon: BookOpen },
@@ -43,21 +37,9 @@ export function Header() {
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const progress = useProgress();
-  const connectedAddress = useAlbumStore((state) => state.connectedAddress);
-  const setConnectedAddress = useAlbumStore((state) => state.setConnectedAddress);
-
-  const handleConnect = () => {
-    const mockAddress = '0x1234...5678';
-    setConnectedAddress(mockAddress);
-  };
-
-  const handleDisconnect = () => {
-    setConnectedAddress(null);
-  };
-
-  const truncateAddress = (address: string) => {
-    return `${address.slice(0, 6)}...${address.slice(-4)}`;
-  };
+  
+  // Real wallet connection state from wagmi
+  const { isConnected } = useAccount();
 
   return (
     <header className="sticky top-0 z-50 border-b border-border/50 bg-background/80 backdrop-blur-xl">
@@ -97,7 +79,7 @@ export function Header() {
         {/* Right section */}
         <div className="flex items-center gap-3">
           {/* Progress indicator (when connected) */}
-          {connectedAddress && (
+          {isConnected && (
             <div className="hidden items-center gap-2 rounded-lg bg-muted/50 px-3 py-1.5 sm:flex">
               <ProgressBar
                 value={progress.totalCollected}
@@ -111,30 +93,97 @@ export function Header() {
             </div>
           )}
 
-          {/* Wallet button */}
-          {connectedAddress ? (
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="outline" className="gap-2">
-                  <Wallet className="h-4 w-4" />
-                  <span className="hidden sm:inline">
-                    {truncateAddress(connectedAddress)}
-                  </span>
-                  <ChevronDown className="h-3 w-3" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuItem onClick={handleDisconnect}>
-                  Disconnect
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          ) : (
-            <Button onClick={handleConnect} className="gap-2">
-              <Wallet className="h-4 w-4" />
-              <span className="hidden sm:inline">Connect Wallet</span>
-            </Button>
-          )}
+          {/* RainbowKit Connect Button - Real wallet connection */}
+          <ConnectButton.Custom>
+            {({
+              account,
+              chain,
+              openAccountModal,
+              openChainModal,
+              openConnectModal,
+              mounted,
+            }) => {
+              const ready = mounted;
+              const connected = ready && account && chain;
+
+              return (
+                <div
+                  {...(!ready && {
+                    'aria-hidden': true,
+                    style: {
+                      opacity: 0,
+                      pointerEvents: 'none',
+                      userSelect: 'none',
+                    },
+                  })}
+                >
+                  {(() => {
+                    if (!connected) {
+                      return (
+                        <Button onClick={openConnectModal} className="gap-2">
+                          Connect Wallet
+                        </Button>
+                      );
+                    }
+
+                    if (chain.unsupported) {
+                      return (
+                        <Button 
+                          onClick={openChainModal} 
+                          variant="destructive"
+                          className="gap-2"
+                        >
+                          Wrong Network
+                        </Button>
+                      );
+                    }
+
+                    return (
+                      <div className="flex items-center gap-2">
+                        {/* Chain button */}
+                        <Button
+                          onClick={openChainModal}
+                          variant="outline"
+                          size="sm"
+                          className="hidden gap-2 sm:flex"
+                        >
+                          {chain.hasIcon && (
+                            <div
+                              className="h-4 w-4 overflow-hidden rounded-full"
+                              style={{ background: chain.iconBackground }}
+                            >
+                              {chain.iconUrl && (
+                                <img
+                                  alt={chain.name ?? 'Chain icon'}
+                                  src={chain.iconUrl}
+                                  className="h-4 w-4"
+                                />
+                              )}
+                            </div>
+                          )}
+                          {chain.name}
+                        </Button>
+
+                        {/* Account button */}
+                        <Button
+                          onClick={openAccountModal}
+                          variant="outline"
+                          className="gap-2"
+                        >
+                          {account.displayName}
+                          {account.displayBalance && (
+                            <span className="hidden text-muted-foreground sm:inline">
+                              ({account.displayBalance})
+                            </span>
+                          )}
+                        </Button>
+                      </div>
+                    );
+                  })()}
+                </div>
+              );
+            }}
+          </ConnectButton.Custom>
 
           {/* Mobile menu button */}
           <Button
