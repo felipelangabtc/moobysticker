@@ -8,6 +8,7 @@ import { useAlbumStore, useProgress } from '@/stores/albumStore';
 import { Button } from '@/components/ui/button';
 import { ProgressRing } from '@/components/ui/progress-ring';
 import { RarityBadge } from '@/components/ui/rarity-badge';
+import { DailyLoginRewards } from '@/components/features/daily/DailyLoginRewards';
 import {
   BookOpen,
   Package,
@@ -19,7 +20,6 @@ import {
   Star,
   Zap,
 } from 'lucide-react';
-
 const features = [
   {
     icon: Package,
@@ -151,6 +151,15 @@ export default function HomePage() {
                 </>
               )}
             </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Daily Login Rewards Section */}
+      <section className="relative py-12">
+        <div className="container mx-auto px-4">
+          <div className="mx-auto max-w-2xl">
+            <DailyLoginRewards />
           </div>
         </div>
       </section>
