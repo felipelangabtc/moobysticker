@@ -50,7 +50,7 @@ export function Header() {
             <BookOpen className="h-6 w-6 text-primary-foreground" />
           </div>
           <span className="hidden font-display text-xl font-bold text-gradient-gold sm:block">
-            NFT Album
+            Mooby Stickers
           </span>
         </Link>
 
