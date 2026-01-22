@@ -16,6 +16,7 @@ import AlbumPage from '@/pages/AlbumPage';
 import OGPage from '@/pages/OGPage';
 import PacksPage from '@/pages/PacksPage';
 import InventoryPage from '@/pages/InventoryPage';
+import MarketplacePage from '@/pages/MarketplacePage';
 import CraftPage from '@/pages/CraftPage';
 import RewardsPage from '@/pages/RewardsPage';
 import HistoryPage from '@/pages/HistoryPage';
@@ -34,6 +35,7 @@ const App = () => (
             <Route path="/og" element={<OGPage />} />
             <Route path="/packs" element={<PacksPage />} />
             <Route path="/inventory" element={<InventoryPage />} />
+            <Route path="/marketplace" element={<MarketplacePage />} />
             <Route path="/craft" element={<CraftPage />} />
             <Route path="/rewards" element={<RewardsPage />} />
             <Route path="/history" element={<HistoryPage />} />
