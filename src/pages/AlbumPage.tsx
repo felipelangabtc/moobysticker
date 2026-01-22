@@ -1,33 +1,69 @@
 /**
  * Album Page - View sticker collection
+ * Page 1: OG Collection (50 stickers)
+ * Pages 2-11: Season 1 Categories (30 stickers each)
  */
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useAlbumStore, useProgress, usePageStickers } from '@/stores/albumStore';
+import { OG_STICKERS, TOTAL_OG_STICKERS } from '@/data/ogStickers';
 import { StickerCard } from '@/components/features/sticker/StickerCard';
 import { ProgressBar } from '@/components/ui/progress-ring';
 import { Button } from '@/components/ui/button';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
+import { ChevronLeft, ChevronRight, Crown, Sparkles } from 'lucide-react';
 
-const CATEGORIES_LIST = [
-  'Legends',
-  'Rising Stars',
-  'Champions',
-  'Hall of Fame',
-  'World Class',
-  'Icons',
-  'Prodigies',
-  'Masters',
-  'Elite',
-  'Immortals',
+// Page 1 = OG, Pages 2-11 = Season 1 categories
+const PAGES_LIST = [
+  { name: 'OG Collection', isOG: true, stickerCount: 50 },
+  { name: 'Legends', isOG: false, stickerCount: 30 },
+  { name: 'Rising Stars', isOG: false, stickerCount: 30 },
+  { name: 'Champions', isOG: false, stickerCount: 30 },
+  { name: 'Hall of Fame', isOG: false, stickerCount: 30 },
+  { name: 'World Class', isOG: false, stickerCount: 30 },
+  { name: 'Icons', isOG: false, stickerCount: 30 },
+  { name: 'Prodigies', isOG: false, stickerCount: 30 },
+  { name: 'Masters', isOG: false, stickerCount: 30 },
+  { name: 'Elite', isOG: false, stickerCount: 30 },
+  { name: 'Immortals', isOG: false, stickerCount: 30 },
 ];
+
+const TOTAL_ALL_STICKERS = 350; // 50 OG + 300 Season 1
 
 export default function AlbumPage() {
   const [currentPage, setCurrentPage] = useState(1);
+  const balances = useAlbumStore((state) => state.balances);
   const progress = useProgress();
-  const pageStickers = usePageStickers(currentPage);
-  const pageProgress = progress.pages[currentPage - 1];
+  
+  // For pages 2-11, use the original page stickers (adjusted index)
+  const seasonPageStickers = usePageStickers(currentPage > 1 ? currentPage - 1 : 1);
+  
+  // Get OG stickers with balances
+  const ogStickersWithBalance = OG_STICKERS.map((sticker) => ({
+    ...sticker,
+    id: 1000 + sticker.id, // Use offset ID
+    page: 0,
+    quantity: balances[1000 + sticker.id] || 0,
+  }));
+  
+  // Calculate OG progress
+  const ogCollected = ogStickersWithBalance.filter((s) => s.quantity > 0).length;
+  
+  // Total collected including OG
+  const totalCollected = progress.totalCollected + ogCollected;
+  
+  // Current page info
+  const currentPageInfo = PAGES_LIST[currentPage - 1];
+  const isOGPage = currentPage === 1;
+  
+  // Get stickers for current page
+  const currentStickers = isOGPage ? ogStickersWithBalance : seasonPageStickers;
+  const currentCollected = isOGPage 
+    ? ogCollected 
+    : (progress.pages[currentPage - 2]?.collected || 0);
+  const currentTotal = currentPageInfo.stickerCount;
+  const isPageComplete = currentCollected === currentTotal;
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -36,19 +72,23 @@ export default function AlbumPage() {
         <div>
           <h1 className="font-display text-3xl font-bold">My Album</h1>
           <p className="text-muted-foreground">
-            Season 1 • {progress.totalCollected}/300 collected
+            {totalCollected}/{TOTAL_ALL_STICKERS} collected
           </p>
         </div>
         <ProgressBar
-          value={progress.totalCollected}
-          max={300}
+          value={totalCollected}
+          max={TOTAL_ALL_STICKERS}
           showLabel
           className="w-full md:w-48"
         />
       </div>
 
       {/* Page navigation */}
-      <div className="mb-6 flex items-center justify-between rounded-xl bg-card/50 p-4">
+      <div className={`mb-6 flex items-center justify-between rounded-xl p-4 ${
+        isOGPage 
+          ? 'bg-gradient-to-r from-yellow-500/10 via-amber-500/10 to-orange-500/10 border border-yellow-500/20' 
+          : 'bg-card/50'
+      }`}>
         <Button
           variant="outline"
           size="icon"
@@ -58,18 +98,28 @@ export default function AlbumPage() {
           <ChevronLeft className="h-4 w-4" />
         </Button>
         <div className="text-center">
-          <h2 className="text-xl font-bold">
-            Page {currentPage}: {CATEGORIES_LIST[currentPage - 1]}
-          </h2>
+          <div className="flex items-center justify-center gap-2">
+            {isOGPage && <Crown className="h-5 w-5 text-yellow-500" />}
+            <h2 className={`text-xl font-bold ${isOGPage ? 'text-gradient-gold' : ''}`}>
+              Page {currentPage}: {currentPageInfo.name}
+            </h2>
+            {isOGPage && (
+              <Badge variant="outline" className="border-yellow-500/50 text-yellow-500">
+                <Sparkles className="mr-1 h-3 w-3" />
+                Exclusive
+              </Badge>
+            )}
+          </div>
           <p className="text-sm text-muted-foreground">
-            {pageProgress?.collected || 0}/30 stickers
+            {currentCollected}/{currentTotal} stickers
+            {isPageComplete && <span className="ml-2 text-green-500">✓ Complete</span>}
           </p>
         </div>
         <Button
           variant="outline"
           size="icon"
-          onClick={() => setCurrentPage(Math.min(10, currentPage + 1))}
-          disabled={currentPage === 10}
+          onClick={() => setCurrentPage(Math.min(11, currentPage + 1))}
+          disabled={currentPage === 11}
         >
           <ChevronRight className="h-4 w-4" />
         </Button>
@@ -77,18 +127,28 @@ export default function AlbumPage() {
 
       {/* Page selector */}
       <div className="mb-8 flex flex-wrap justify-center gap-2">
-        {Array.from({ length: 10 }, (_, i) => i + 1).map((page) => {
-          const pg = progress.pages[page - 1];
+        {PAGES_LIST.map((page, index) => {
+          const pageNum = index + 1;
+          const isOG = page.isOG;
+          const pageCollected = isOG 
+            ? ogCollected 
+            : (progress.pages[pageNum - 2]?.collected || 0);
+          const pageTotal = page.stickerCount;
+          const complete = pageCollected === pageTotal;
+          
           return (
             <Button
-              key={page}
-              variant={currentPage === page ? 'default' : 'outline'}
+              key={pageNum}
+              variant={currentPage === pageNum ? 'default' : 'outline'}
               size="sm"
-              onClick={() => setCurrentPage(page)}
-              className="relative"
+              onClick={() => setCurrentPage(pageNum)}
+              className={`relative ${isOG && currentPage !== pageNum ? 'border-yellow-500/50 text-yellow-600 hover:bg-yellow-500/10' : ''}`}
             >
-              {page}
-              {pg?.isComplete && (
+              {isOG ? (
+                <Crown className="mr-1 h-3 w-3" />
+              ) : null}
+              {pageNum}
+              {complete && (
                 <span className="absolute -right-1 -top-1 h-2 w-2 rounded-full bg-green-500" />
               )}
             </Button>
@@ -103,7 +163,7 @@ export default function AlbumPage() {
         animate={{ opacity: 1, x: 0 }}
         className="grid grid-cols-3 gap-3 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-10"
       >
-        {pageStickers.map((sticker) => (
+        {currentStickers.map((sticker) => (
           <StickerCard
             key={sticker.id}
             sticker={sticker}
@@ -112,6 +172,28 @@ export default function AlbumPage() {
           />
         ))}
       </motion.div>
+
+      {/* OG Legend */}
+      {isOGPage && (
+        <div className="mt-8 flex flex-wrap justify-center gap-4 text-sm text-muted-foreground">
+          <div className="flex items-center gap-2">
+            <div className="h-3 w-3 rounded-full bg-slate-500" />
+            <span>Common</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="h-3 w-3 rounded-full bg-blue-500" />
+            <span>Rare</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="h-3 w-3 rounded-full bg-purple-500" />
+            <span>Epic</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="h-3 w-3 rounded-full bg-yellow-500" />
+            <span>Legendary</span>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
