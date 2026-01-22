@@ -17,6 +17,7 @@ import {
   Flame,
   Trophy,
   History,
+  Store,
   Menu,
   X,
 } from 'lucide-react';
@@ -28,6 +29,7 @@ const navItems = [
   { path: '/album', label: 'Album', icon: BookOpen },
   { path: '/packs', label: 'Packs', icon: Package },
   { path: '/inventory', label: 'Inventory', icon: Backpack },
+  { path: '/marketplace', label: 'Market', icon: Store },
   { path: '/craft', label: 'Craft', icon: Flame },
   { path: '/rewards', label: 'Rewards', icon: Trophy },
   { path: '/history', label: 'History', icon: History },
