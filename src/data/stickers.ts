@@ -3,7 +3,7 @@
  * Each page has 30 slots (3 rows of 10)
  */
 
-import { STICKER_IMAGES_BY_ID } from './stickerImages';
+import { STICKER_IMAGES_BY_ID, NAMED_SEASON1_STICKERS } from './stickerImages';
 
 export type Rarity = 'common' | 'rare' | 'epic' | 'legendary';
 
@@ -53,22 +53,7 @@ const CATEGORIES: Category[] = [
   'Immortals',
 ];
 
-// Named stickers with actual images - these get priority
-const NAMED_STICKERS: Record<number, string> = {
-  1: 'Forest Wolf',
-  2: 'Ember Salamander',
-  3: 'Crystal Golem',
-  22: 'Frost Dragon',
-  28: 'Arcane Phoenix',
-  52: 'Cosmic Wizard',
-  58: 'Thunder Knight',
-  85: 'Shadow Ninja',
-  88: 'Ocean Leviathan',
-  150: 'Golden Warrior',
-  300: 'Celestial Dragon',
-};
-
-// Names pool for variety
+// Names pool for variety (used when no named image exists)
 const CREATURE_NAMES = [
   'Ancient Griffin', 'Blazing Wyvern', 'Cursed Specter', 'Dark Sentinel', 'Ethereal Spirit',
   'Fierce Chimera', 'Glacial Titan', 'Haunted Wraith', 'Iron Colossus', 'Jade Serpent',
@@ -84,11 +69,12 @@ const CREATURE_NAMES = [
 
 /**
  * Generates a deterministic sticker name based on ID
+ * Uses named stickers from stickerImages if available
  */
 function generateStickerName(id: number): string {
   // Check if this sticker has a named image
-  if (NAMED_STICKERS[id]) {
-    return NAMED_STICKERS[id];
+  if (NAMED_SEASON1_STICKERS[id]) {
+    return NAMED_SEASON1_STICKERS[id].name;
   }
   // Otherwise use creature names
   const nameIndex = (id * 7) % CREATURE_NAMES.length;
