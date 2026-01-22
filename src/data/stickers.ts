@@ -3,6 +3,8 @@
  * Each page has 30 slots (3 rows of 10)
  */
 
+import { STICKER_IMAGES_BY_ID } from './stickerImages';
+
 export type Rarity = 'common' | 'rare' | 'epic' | 'legendary';
 
 export type Category = 
@@ -33,7 +35,7 @@ export interface Sticker {
   category: Category;
   /** Season identifier */
   season: number;
-  /** Image URL (placeholder for now) */
+  /** Image URL */
   imageUrl: string;
 }
 
@@ -51,28 +53,46 @@ const CATEGORIES: Category[] = [
   'Immortals',
 ];
 
-// Names pool for variety
-const NAME_PREFIXES = [
-  'Golden', 'Silver', 'Bronze', 'Platinum', 'Diamond',
-  'Crystal', 'Shadow', 'Thunder', 'Storm', 'Fire',
-  'Ice', 'Lightning', 'Cosmic', 'Stellar', 'Nova',
-  'Phoenix', 'Dragon', 'Tiger', 'Eagle', 'Wolf',
-];
+// Named stickers with actual images - these get priority
+const NAMED_STICKERS: Record<number, string> = {
+  1: 'Forest Wolf',
+  2: 'Ember Salamander',
+  3: 'Crystal Golem',
+  22: 'Frost Dragon',
+  28: 'Arcane Phoenix',
+  52: 'Cosmic Wizard',
+  58: 'Thunder Knight',
+  85: 'Shadow Ninja',
+  88: 'Ocean Leviathan',
+  150: 'Golden Warrior',
+  300: 'Celestial Dragon',
+};
 
-const NAME_SUFFIXES = [
-  'Striker', 'Guardian', 'Warrior', 'Champion', 'Master',
-  'Legend', 'Hero', 'Knight', 'King', 'Prince',
-  'Duke', 'Baron', 'Lord', 'Captain', 'Commander',
-  'Titan', 'Giant', 'Ace', 'Star', 'Flash',
+// Names pool for variety
+const CREATURE_NAMES = [
+  'Ancient Griffin', 'Blazing Wyvern', 'Cursed Specter', 'Dark Sentinel', 'Ethereal Spirit',
+  'Fierce Chimera', 'Glacial Titan', 'Haunted Wraith', 'Iron Colossus', 'Jade Serpent',
+  'Kraken Lord', 'Lightning Beast', 'Mystic Unicorn', 'Night Stalker', 'Onyx Gargoyle',
+  'Primal Behemoth', 'Quartz Guardian', 'Raging Minotaur', 'Storm Elemental', 'Thunder Hawk',
+  'Undying Revenant', 'Void Walker', 'War Hydra', 'Xeno Hunter', 'Yeti Berserker',
+  'Zephyr Phoenix', 'Amber Drake', 'Bronze Golem', 'Crimson Basilisk', 'Dawn Rider',
+  'Eclipse Knight', 'Flame Djinn', 'Ghost Samurai', 'Holy Paladin', 'Inferno Demon',
+  'Jungle Predator', 'Karma Spirit', 'Lunar Wolf', 'Mountain Giant', 'Nebula Mage',
+  'Ocean Guardian', 'Poison Wyrm', 'Quantum Shifter', 'Radiant Angel', 'Sand Scorpion',
+  'Tempest Archer', 'Ultra Beast', 'Venom Spider', 'Wind Dancer', 'Xylo Warrior',
 ];
 
 /**
  * Generates a deterministic sticker name based on ID
  */
 function generateStickerName(id: number): string {
-  const prefixIndex = (id * 7) % NAME_PREFIXES.length;
-  const suffixIndex = (id * 13) % NAME_SUFFIXES.length;
-  return `${NAME_PREFIXES[prefixIndex]} ${NAME_SUFFIXES[suffixIndex]}`;
+  // Check if this sticker has a named image
+  if (NAMED_STICKERS[id]) {
+    return NAMED_STICKERS[id];
+  }
+  // Otherwise use creature names
+  const nameIndex = (id * 7) % CREATURE_NAMES.length;
+  return CREATURE_NAMES[nameIndex];
 }
 
 /**
@@ -105,10 +125,16 @@ function determineRarity(page: number, slot: number, id: number): Rarity {
 }
 
 /**
- * Generate placeholder image URL
- * In production, this would be IPFS or CDN URLs
+ * Generate image URL - uses actual image if available, otherwise placeholder
  */
 function generateImageUrl(id: number, rarity: Rarity): string {
+  // Check if we have an actual image for this sticker
+  const actualImage = STICKER_IMAGES_BY_ID.get(id);
+  if (actualImage) {
+    return actualImage;
+  }
+  
+  // Fallback to placeholder
   const colors: Record<Rarity, string> = {
     common: '64748b',
     rare: '3b82f6',

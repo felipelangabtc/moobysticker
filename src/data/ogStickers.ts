@@ -4,6 +4,7 @@
  */
 
 import type { Rarity } from './stickers';
+import { OG_STICKER_IMAGES_BY_ID } from './stickerImages';
 
 export interface OGSticker {
   /** Unique token ID (OG-1 to OG-50) */
@@ -24,7 +25,7 @@ export interface OGSticker {
   isOG: true;
 }
 
-// OG-themed names
+// OG-themed names (matching generated images where available)
 const OG_NAMES = [
   'Genesis Founder',
   'Alpha Pioneer',
@@ -32,8 +33,8 @@ const OG_NAMES = [
   'Early Bird',
   'Trailblazer',
   'OG Legend',
-  'Diamond Hands',
-  'Moon Walker',
+  'Diamond Hands',    // ID 7 - Diamond Ape image
+  'Moon Walker',      // ID 8 - Moonshot image
   'Crypto King',
   'NFT Master',
   'Whale Whisperer',
@@ -50,7 +51,7 @@ const OG_NAMES = [
   'Bridge Baron',
   'Layer Legend',
   'Protocol Prince',
-  'DAO Duke',
+  'Legendary Crown',  // ID 25 - Crown image (Legendary)
   'Governance God',
   'Vote Vanguard',
   'Proposal Pro',
@@ -75,7 +76,7 @@ const OG_NAMES = [
   'Collection Chief',
   'Rarity Royal',
   'Epic Elder',
-  'Legendary Lord',
+  'Legendary Lord',   // ID 50 - Crown image (Legendary)
 ];
 
 /**
@@ -102,9 +103,16 @@ function determineOGRarity(slot: number): Rarity {
 }
 
 /**
- * Generate OG placeholder image URL with special gold/black theme
+ * Generate OG image URL - uses actual image if available, otherwise placeholder
  */
 function generateOGImageUrl(id: number, rarity: Rarity): string {
+  // Check if we have an actual image for this OG sticker
+  const actualImage = OG_STICKER_IMAGES_BY_ID.get(id);
+  if (actualImage) {
+    return actualImage;
+  }
+  
+  // Fallback to placeholder with gold/black theme
   const colors: Record<Rarity, string> = {
     common: '1a1a1a',
     rare: '1e40af',
