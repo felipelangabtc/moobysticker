@@ -4,12 +4,14 @@
  */
 
 import { useState, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Package, Filter, SortAsc, Layers, Sparkles, Crown, Star, Gem } from 'lucide-react';
-import { useAlbumStore } from '@/stores/albumStore';
+import { useAlbumStore, useDuplicates } from '@/stores/albumStore';
 import { STICKERS_BY_ID } from '@/data/stickers';
 import { OG_STICKERS_BY_ID } from '@/data/ogStickers';
 import { StickerCard } from '@/components/features/sticker/StickerCard';
+import { StickerDetailModal } from '@/components/features/sticker/StickerDetailModal';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -41,10 +43,34 @@ const RARITY_COLORS: Record<Rarity, string> = {
 };
 
 export default function InventoryPage() {
+  const navigate = useNavigate();
   const balances = useAlbumStore((state) => state.balances);
+  const duplicates = useDuplicates();
   const [filter, setFilter] = useState<FilterType>('all');
   const [sort, setSort] = useState<SortType>('rarity');
   const [showOG, setShowOG] = useState<'all' | 'season1' | 'og'>('all');
+  const [selectedSticker, setSelectedSticker] = useState<{
+    id: number;
+    name: string;
+    rarity: Rarity;
+    imageUrl: string;
+    quantity: number;
+    isOG: boolean;
+  } | null>(null);
+
+  // Calculate duplicates by rarity
+  const duplicatesByRarity = useMemo(() => {
+    const counts: Record<Rarity, number> = { common: 0, rare: 0, epic: 0, legendary: 0 };
+    duplicates.forEach((item) => {
+      counts[item.rarity] += item.quantity - 1;
+    });
+    return counts;
+  }, [duplicates]);
+
+  const handleCraft = (rarity: Rarity) => {
+    setSelectedSticker(null);
+    navigate('/craft');
+  };
 
   // Build inventory from balances
   const inventory = useMemo(() => {
@@ -326,6 +352,7 @@ export default function InventoryPage() {
                   }}
                   size="sm"
                   showDetails={false}
+                  onClick={() => setSelectedSticker(item)}
                 />
                 {/* Quantity Badge */}
                 {item.quantity > 1 && (
@@ -386,6 +413,15 @@ export default function InventoryPage() {
             </Badge>
           ))}
         </motion.div>
+
+        {/* Sticker Detail Modal */}
+        <StickerDetailModal
+          sticker={selectedSticker}
+          open={!!selectedSticker}
+          onOpenChange={(open) => !open && setSelectedSticker(null)}
+          duplicatesByRarity={duplicatesByRarity}
+          onCraft={handleCraft}
+        />
       </div>
     </div>
   );
