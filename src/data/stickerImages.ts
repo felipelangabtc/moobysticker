@@ -1,6 +1,6 @@
 /**
  * Sticker Images - Mapping of sticker IDs to generated images
- * Complete collection with 165+ unique artworks
+ * Complete collection with 220+ unique artworks
  */
 
 // Import generated sticker images - Season 1 Commons
@@ -65,6 +65,24 @@ import commonEmberFox from '@/assets/stickers/common-ember-fox.png';
 import commonTombGuardian from '@/assets/stickers/common-tomb-guardian.png';
 import commonSeaDrake from '@/assets/stickers/common-sea-drake.png';
 import commonShadowCat from '@/assets/stickers/common-shadow-cat.png';
+// New batch 5
+import commonAzureWisp from '@/assets/stickers/common-azure-wisp.png';
+import commonObsidianBeetle from '@/assets/stickers/common-obsidian-beetle.png';
+import commonSilverFox from '@/assets/stickers/common-silver-fox.png';
+import commonToxicFrog from '@/assets/stickers/common-toxic-frog.png';
+import commonCopperDrake from '@/assets/stickers/common-copper-drake.png';
+import commonDustDevil from '@/assets/stickers/common-dust-devil.png';
+import commonTwilightRaven from '@/assets/stickers/common-twilight-raven.png';
+import commonMarshSerpent from '@/assets/stickers/common-marsh-serpent.png';
+import commonIronSentinel from '@/assets/stickers/common-iron-sentinel.png';
+import commonVolcanicSalamander from '@/assets/stickers/common-volcanic-salamander.png';
+import commonCelestialSerpent from '@/assets/stickers/common-celestial-serpent.png';
+import commonNetherHound from '@/assets/stickers/common-nether-hound.png';
+import commonJadeTurtle from '@/assets/stickers/common-jade-turtle.png';
+import commonNebulaSprite from '@/assets/stickers/common-nebula-sprite.png';
+import commonThunderLizard from '@/assets/stickers/common-thunder-lizard.png';
+import commonRadiantUnicorn from '@/assets/stickers/common-radiant-unicorn.png';
+import commonShadowImp from '@/assets/stickers/common-shadow-imp.png';
 
 // Import generated sticker images - Season 1 Rares
 import rareIceDragon from '@/assets/stickers/rare-ice-dragon.png';
@@ -114,6 +132,22 @@ import rareVampireLord from '@/assets/stickers/rare-vampire-lord.png';
 import rareWarMachine from '@/assets/stickers/rare-war-machine.png';
 import rareSandPharaoh from '@/assets/stickers/rare-sand-pharaoh.png';
 import rarePlagueBringer from '@/assets/stickers/rare-plague-bringer.png';
+// New batch 5
+import rareCrystalPhoenix from '@/assets/stickers/rare-crystal-phoenix.png';
+import rareGoldenGriffin from '@/assets/stickers/rare-golden-griffin.png';
+import rareVoidSerpent from '@/assets/stickers/rare-void-serpent.png';
+import rareArcaneSentinel from '@/assets/stickers/rare-arcane-sentinel.png';
+import rareStormTitan from '@/assets/stickers/rare-storm-titan.png';
+import rareEmberLord from '@/assets/stickers/rare-ember-lord.png';
+import rareIceWarden from '@/assets/stickers/rare-ice-warden.png';
+import rareShadowPhoenix from '@/assets/stickers/rare-shadow-phoenix.png';
+import rareNatureGuardian from '@/assets/stickers/rare-nature-guardian.png';
+import rareThunderDrake from '@/assets/stickers/rare-thunder-drake.png';
+import rareBladeDancer from '@/assets/stickers/rare-blade-dancer.png';
+import rareCelestialArcher from '@/assets/stickers/rare-celestial-archer.png';
+import rareMysticOracle from '@/assets/stickers/rare-mystic-oracle.png';
+import rareIronGolem from '@/assets/stickers/rare-iron-golem.png';
+import rareNetherKnight from '@/assets/stickers/rare-nether-knight.png';
 
 // Import generated sticker images - Season 1 Epics
 import epicPhoenix from '@/assets/stickers/epic-phoenix.png';
@@ -146,6 +180,17 @@ import epicElementalLord from '@/assets/stickers/epic-elemental-lord.png';
 import epicMoonGoddess from '@/assets/stickers/epic-moon-goddess.png';
 import epicSunEmperor from '@/assets/stickers/epic-sun-emperor.png';
 import epicChaosTitan from '@/assets/stickers/epic-chaos-titan.png';
+// New batch 5
+import epicPrismaticDragon from '@/assets/stickers/epic-prismatic-dragon.png';
+import epicShadowEmperor from '@/assets/stickers/epic-shadow-emperor.png';
+import epicCelestialPhoenix from '@/assets/stickers/epic-celestial-phoenix.png';
+import epicFrostEmperor from '@/assets/stickers/epic-frost-emperor.png';
+import epicThunderGod from '@/assets/stickers/epic-thunder-god.png';
+import epicAncientWyrm from '@/assets/stickers/epic-ancient-wyrm.png';
+import epicSolarEmpress from '@/assets/stickers/epic-solar-empress.png';
+import epicVoidDragon from '@/assets/stickers/epic-void-dragon.png';
+import epicArcaneEmperor from '@/assets/stickers/epic-arcane-emperor.png';
+import epicNatureTitan from '@/assets/stickers/epic-nature-titan.png';
 
 // Import generated sticker images - Season 1 Legendaries
 import legendaryGoldenWarrior from '@/assets/stickers/legendary-golden-warrior.png';
@@ -178,6 +223,19 @@ import ogWagmiWarrior from '@/assets/stickers/og-wagmi-warrior.png';
 import ogSnapshotSniper from '@/assets/stickers/og-snapshot-sniper.png';
 import ogMevBot from '@/assets/stickers/og-mev-bot.png';
 import ogYieldFarmer from '@/assets/stickers/og-yield-farmer.png';
+// New batch 5
+import ogTokenPriest from '@/assets/stickers/og-token-priest.png';
+import ogChainGuardian from '@/assets/stickers/og-chain-guardian.png';
+import ogHodlKnight from '@/assets/stickers/og-hodl-knight.png';
+import ogBullSpirit from '@/assets/stickers/og-bull-spirit.png';
+import ogBearSurvivor from '@/assets/stickers/og-bear-survivor.png';
+import ogContractWizard from '@/assets/stickers/og-contract-wizard.png';
+import ogLayer2Ranger from '@/assets/stickers/og-layer2-ranger.png';
+import ogGovernanceOracle from '@/assets/stickers/og-governance-oracle.png';
+import ogGasOptimizer from '@/assets/stickers/og-gas-optimizer.png';
+import ogDefiPaladin from '@/assets/stickers/og-defi-paladin.png';
+import ogPumpHunter from '@/assets/stickers/og-pump-hunter.png';
+import ogVaultKeeper from '@/assets/stickers/og-vault-keeper.png';
 
 // Sample sticker data with actual images
 export interface StickerImageData {
@@ -256,6 +314,25 @@ export const NAMED_SEASON1_STICKERS: Record<number, { name: string; image: strin
   77: { name: 'Tomb Guardian', image: commonTombGuardian },
   78: { name: 'Sea Drake', image: commonSeaDrake },
   79: { name: 'Shadow Cat', image: commonShadowCat },
+  80: { name: 'Azure Wisp', image: commonAzureWisp },
+  81: { name: 'Obsidian Beetle', image: commonObsidianBeetle },
+  
+  // Page 4 - Common (slots 91-111)
+  91: { name: 'Silver Fox', image: commonSilverFox },
+  92: { name: 'Toxic Frog', image: commonToxicFrog },
+  93: { name: 'Copper Drake', image: commonCopperDrake },
+  94: { name: 'Dust Devil', image: commonDustDevil },
+  95: { name: 'Twilight Raven', image: commonTwilightRaven },
+  96: { name: 'Marsh Serpent', image: commonMarshSerpent },
+  97: { name: 'Iron Sentinel', image: commonIronSentinel },
+  98: { name: 'Volcanic Salamander', image: commonVolcanicSalamander },
+  99: { name: 'Celestial Serpent', image: commonCelestialSerpent },
+  100: { name: 'Nether Hound', image: commonNetherHound },
+  101: { name: 'Jade Turtle', image: commonJadeTurtle },
+  102: { name: 'Nebula Sprite', image: commonNebulaSprite },
+  103: { name: 'Thunder Lizard', image: commonThunderLizard },
+  104: { name: 'Radiant Unicorn', image: commonRadiantUnicorn },
+  105: { name: 'Shadow Imp', image: commonShadowImp },
   
   // Rare (slots 22-27 per page)
   22: { name: 'Frost Dragon', image: rareIceDragon },
@@ -276,18 +353,33 @@ export const NAMED_SEASON1_STICKERS: Record<number, { name: string; image: strin
   85: { name: 'Shadow Ninja', image: rareShadowNinja },
   86: { name: 'Astral Serpent', image: rareAstralSerpent },
   87: { name: 'Blood Knight', image: rareBloodKnight },
+  106: { name: 'Crystal Phoenix', image: rareCrystalPhoenix },
+  107: { name: 'Golden Griffin', image: rareGoldenGriffin },
+  108: { name: 'Void Serpent', image: rareVoidSerpent },
+  109: { name: 'Arcane Sentinel', image: rareArcaneSentinel },
+  110: { name: 'Storm Titan', image: rareStormTitan },
+  111: { name: 'Ember Lord', image: rareEmberLord },
   112: { name: 'Ocean Guardian', image: rareOceanGuardian },
   113: { name: 'Tempest Archer', image: rareTempestArcher },
   114: { name: 'Yeti Berserker', image: rareYetiBerserker },
   115: { name: 'Crystal Dragon', image: rareCrystalDragon },
   116: { name: 'Plague Doctor', image: rarePlagueDoctor },
   117: { name: 'Sun Priest', image: rareSunPriest },
+  136: { name: 'Ice Warden', image: rareIceWarden },
+  137: { name: 'Shadow Phoenix', image: rareShadowPhoenix },
+  138: { name: 'Nature Guardian', image: rareNatureGuardian },
+  139: { name: 'Thunder Drake', image: rareThunderDrake },
+  140: { name: 'Blade Dancer', image: rareBladeDancer },
+  141: { name: 'Celestial Archer', image: rareCelestialArcher },
   142: { name: 'Demon Hunter', image: rareDemonHunter },
   143: { name: 'Frost Giant', image: rareFrostGiant },
   144: { name: 'Spirit Fox', image: rareSpiritFox },
   145: { name: 'Chaos Mage', image: rareChaosMage },
   146: { name: 'Obsidian Golem', image: rareObsidianGolem },
   147: { name: 'Void Assassin', image: rareVoidAssassin },
+  166: { name: 'Mystic Oracle', image: rareMysticOracle },
+  167: { name: 'Iron Golem', image: rareIronGolem },
+  168: { name: 'Nether Knight', image: rareNetherKnight },
   172: { name: 'Earth Titan', image: rareEarthTitan },
   173: { name: 'Moon Priestess', image: rareMoonPriestess },
   174: { name: 'Infernal Warlord', image: rareInfernalWarlord },
@@ -315,34 +407,46 @@ export const NAMED_SEASON1_STICKERS: Record<number, { name: string; image: strin
   89: { name: 'Primal Behemoth', image: epicPrimalBehemoth },
   118: { name: 'Inferno Demon', image: epicInfernoDemon },
   119: { name: 'Holy Paladin', image: epicHolyPaladin },
+  120: { name: 'Prismatic Dragon', image: epicPrismaticDragon },
+  121: { name: 'Shadow Emperor', image: epicShadowEmperor },
   148: { name: 'War Hydra', image: epicWarHydra },
   149: { name: 'Glacial Titan', image: epicGlacialTitan },
+  150: { name: 'Golden Warrior', image: legendaryGoldenWarrior },
+  151: { name: 'Demon Lord', image: epicDemonLord },
+  152: { name: 'Celestial Phoenix', image: epicCelestialPhoenix },
+  153: { name: 'Frost Emperor', image: epicFrostEmperor },
   178: { name: 'Kraken Lord', image: epicKrakenLord },
   179: { name: 'Zephyr Phoenix', image: epicZephyrPhoenix },
+  180: { name: 'Radiant Angel', image: legendaryRadiantAngel },
+  181: { name: 'Lich King', image: epicLichKing },
+  182: { name: 'Thunder God', image: epicThunderGod },
+  183: { name: 'Ancient Wyrm', image: epicAncientWyrm },
   208: { name: 'Eclipse Knight', image: epicEclipseKnight },
   209: { name: 'Nebula Mage', image: epicNebulaMage },
+  210: { name: 'Elemental Lord', image: epicElementalLord },
+  211: { name: 'Moon Goddess', image: epicMoonGoddess },
+  212: { name: 'Solar Empress', image: epicSolarEmpress },
+  213: { name: 'Void Dragon', image: epicVoidDragon },
   238: { name: 'Void Empress', image: epicVoidEmpress },
   239: { name: 'Storm Dragon', image: epicStormDragon },
+  240: { name: 'Sun Emperor', image: epicSunEmperor },
+  241: { name: 'Chaos Titan', image: epicChaosTitan },
+  242: { name: 'Arcane Emperor', image: epicArcaneEmperor },
+  243: { name: 'Nature Titan', image: epicNatureTitan },
   268: { name: 'Celestial Guardian', image: epicCelestialGuardian },
   269: { name: 'Abyssal Kraken', image: epicAbyssalKraken },
   298: { name: 'Titan Slayer', image: epicTitanSlayer },
   299: { name: 'Arcane Colossus', image: epicArcaneColossus },
   60: { name: 'Death Knight', image: epicDeathKnight },
   90: { name: 'Phoenix Lord', image: epicPhoenixLord },
-  120: { name: 'World Serpent', image: epicWorldSerpent },
-  121: { name: 'Dragon God', image: epicDragonGod },
-  150: { name: 'Golden Warrior', image: legendaryGoldenWarrior },
-  151: { name: 'Demon Lord', image: epicDemonLord },
-  180: { name: 'Radiant Angel', image: legendaryRadiantAngel },
-  181: { name: 'Lich King', image: epicLichKing },
-  210: { name: 'Elemental Lord', image: epicElementalLord },
-  211: { name: 'Moon Goddess', image: epicMoonGoddess },
-  240: { name: 'Sun Emperor', image: epicSunEmperor },
-  241: { name: 'Chaos Titan', image: epicChaosTitan },
   
   // Legendary (slot 30 on pages 5 and 10)
   270: { name: 'Void King', image: legendaryVoidKing },
   300: { name: 'Celestial Dragon', image: legendaryCelestialDragon },
+  
+  // World Serpent and Dragon God
+  122: { name: 'World Serpent', image: epicWorldSerpent },
+  123: { name: 'Dragon God', image: epicDragonGod },
 };
 
 // Named stickers for OG Collection - maps ID to { name, image }
@@ -370,7 +474,19 @@ export const NAMED_OG_STICKERS: Record<number, { name: string; image: string }> 
   21: { name: 'Snapshot Sniper', image: ogSnapshotSniper },
   22: { name: 'MEV Bot', image: ogMevBot },
   23: { name: 'Yield Farmer', image: ogYieldFarmer },
+  24: { name: 'Token Priest', image: ogTokenPriest },
   25: { name: 'Legendary Crown', image: ogLegendaryCrown },
+  26: { name: 'Chain Guardian', image: ogChainGuardian },
+  27: { name: 'HODL Knight', image: ogHodlKnight },
+  28: { name: 'Bull Spirit', image: ogBullSpirit },
+  29: { name: 'Bear Survivor', image: ogBearSurvivor },
+  30: { name: 'Contract Wizard', image: ogContractWizard },
+  31: { name: 'Layer2 Ranger', image: ogLayer2Ranger },
+  32: { name: 'Governance Oracle', image: ogGovernanceOracle },
+  33: { name: 'Gas Optimizer', image: ogGasOptimizer },
+  34: { name: 'DeFi Paladin', image: ogDefiPaladin },
+  35: { name: 'Pump Hunter', image: ogPumpHunter },
+  36: { name: 'Vault Keeper', image: ogVaultKeeper },
   50: { name: 'Legendary Lord', image: ogLegendaryCrown },
 };
 
