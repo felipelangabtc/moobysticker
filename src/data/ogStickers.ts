@@ -4,7 +4,7 @@
  */
 
 import type { Rarity } from './stickers';
-import { OG_STICKER_IMAGES_BY_ID } from './stickerImages';
+import { OG_STICKER_IMAGES_BY_ID, NAMED_OG_STICKERS } from './stickerImages';
 
 export interface OGSticker {
   /** Unique token ID (OG-1 to OG-50) */
@@ -25,19 +25,19 @@ export interface OGSticker {
   isOG: true;
 }
 
-// OG-themed names (matching generated images where available)
+// OG-themed names (fallback for stickers without generated images)
 const OG_NAMES = [
-  'Genesis Founder',
+  'Genesis Founder',   // ID 1 - Has image
   'Alpha Pioneer',
   'First Mover',
   'Early Bird',
   'Trailblazer',
   'OG Legend',
-  'Diamond Hands',    // ID 7 - Diamond Ape image
-  'Moon Walker',      // ID 8 - Moonshot image
+  'Diamond Hands',     // ID 7 - Has Diamond Ape image
+  'Moon Walker',       // ID 8 - Has Moonshot image
   'Crypto King',
   'NFT Master',
-  'Whale Whisperer',
+  'Whale Whisperer',   // ID 11 - Has Whale King image
   'Chain Breaker',
   'Block Builder',
   'Token Titan',
@@ -51,7 +51,7 @@ const OG_NAMES = [
   'Bridge Baron',
   'Layer Legend',
   'Protocol Prince',
-  'Legendary Crown',  // ID 25 - Crown image (Legendary)
+  'Legendary Crown',   // ID 25 - Has Crown image (Legendary)
   'Governance God',
   'Vote Vanguard',
   'Proposal Pro',
@@ -76,8 +76,19 @@ const OG_NAMES = [
   'Collection Chief',
   'Rarity Royal',
   'Epic Elder',
-  'Legendary Lord',   // ID 50 - Crown image (Legendary)
+  'Legendary Lord',    // ID 50 - Has Crown image (Legendary)
 ];
+
+/**
+ * Gets OG sticker name - uses named stickers if available
+ */
+function getOGStickerName(slot: number): string {
+  // Check if we have a named sticker with image
+  if (NAMED_OG_STICKERS[slot]) {
+    return NAMED_OG_STICKERS[slot].name;
+  }
+  return OG_NAMES[slot - 1];
+}
 
 /**
  * Determines rarity for OG stickers
@@ -135,7 +146,7 @@ export function generateOGStickers(): OGSticker[] {
       id: slot,
       slot,
       rarity,
-      name: OG_NAMES[slot - 1],
+      name: getOGStickerName(slot),
       category: 'OG',
       season: 0,
       imageUrl: generateOGImageUrl(slot, rarity),
