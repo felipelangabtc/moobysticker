@@ -21,7 +21,7 @@ import {
   Gem,
   Crown,
 } from 'lucide-react';
-import { useSalesHistory, useSalesStats, type SaleRecord } from '@/stores/marketplaceStore';
+import { useSalesHistory, calculateSalesStats, type SaleRecord } from '@/stores/marketplaceStore';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -56,9 +56,11 @@ interface SalesHistoryProps {
 
 export function SalesHistory({ expanded = false }: SalesHistoryProps) {
   const salesHistory = useSalesHistory();
-  const stats = useSalesStats();
   const [isExpanded, setIsExpanded] = useState(expanded);
   const [showAll, setShowAll] = useState(false);
+
+  // Calculate stats using useMemo to prevent infinite loops
+  const stats = useMemo(() => calculateSalesStats(salesHistory), [salesHistory]);
 
   const displayedSales = useMemo(() => {
     return showAll ? salesHistory : salesHistory.slice(0, 10);
