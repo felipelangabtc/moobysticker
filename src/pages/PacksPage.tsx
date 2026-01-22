@@ -1,36 +1,60 @@
 /**
  * Packs Page - Purchase and view owned packs
+ * Now with real blockchain integration on Polygon Amoy testnet
  */
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { PACK_CONFIGS, PACK_ORDER } from '@/data/packs';
+import { useAccount } from 'wagmi';
+import { ConnectButton } from '@rainbow-me/rainbowkit';
+import { PACK_CONFIGS, PACK_ORDER, PackType } from '@/data/packs';
 import { PackCard } from '@/components/features/packs/PackCard';
 import { PackOpening } from '@/components/features/packs/PackOpening';
 import { OGHolderPackCard, OG_PACK_REWARDS } from '@/components/features/packs/OGHolderPackCard';
 import { useAlbumStore } from '@/stores/albumStore';
 import { toast } from 'sonner';
 import { OG_STICKERS } from '@/data/ogStickers';
+import { usePackPurchase } from '@/hooks/usePackPurchase';
+import { Wallet, AlertCircle, ExternalLink } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 export default function PacksPage() {
+  const { isConnected, address, chain } = useAccount();
+  const { purchasePack, isProcessing, status, reset } = usePackPurchase();
+  
   const [openingPack, setOpeningPack] = useState<{ type: string; stickers: number[] } | null>(null);
   const [pendingPacks, setPendingPacks] = useState<{ gold: number; silver: number; basic: number }>({
     gold: 0,
     silver: 0,
     basic: 0,
   });
+  const [buyingPackType, setBuyingPackType] = useState<string | null>(null);
   const mockAddStickers = useAlbumStore((state) => state.mockAddStickers);
 
-  const handleBuyPack = (packType: string) => {
-    const pack = PACK_CONFIGS[packType as keyof typeof PACK_CONFIGS];
-    // Mock: Generate random sticker IDs
-    const stickers: number[] = [];
-    while (stickers.length < pack.stickerCount) {
-      const id = Math.floor(Math.random() * 300) + 1;
-      if (!stickers.includes(id)) stickers.push(id);
+  const handleBuyPack = async (packType: string) => {
+    if (!isConnected) {
+      toast.error('Please connect your wallet first');
+      return;
     }
-    setOpeningPack({ type: packType, stickers });
-    toast.success(`${pack.name} purchased!`);
+
+    setBuyingPackType(packType);
+    
+    // Execute blockchain transaction
+    const success = await purchasePack(packType as PackType);
+    
+    if (success) {
+      const pack = PACK_CONFIGS[packType as keyof typeof PACK_CONFIGS];
+      // Generate random sticker IDs after successful purchase
+      const stickers: number[] = [];
+      while (stickers.length < pack.stickerCount) {
+        const id = Math.floor(Math.random() * 300) + 1;
+        if (!stickers.includes(id)) stickers.push(id);
+      }
+      setOpeningPack({ type: packType, stickers });
+    }
+    
+    setBuyingPackType(null);
+    reset();
   };
 
   const handleClaimOGPack = (tokenId: number) => {
@@ -101,7 +125,54 @@ export default function PacksPage() {
       <div className="mb-8 text-center">
         <h1 className="font-display text-3xl font-bold">Pack Shop</h1>
         <p className="text-muted-foreground">Choose your pack and discover new stickers</p>
+        
+        {/* Network indicator */}
+        {isConnected && (
+          <div className="mt-2 inline-flex items-center gap-2 rounded-full bg-purple-500/10 px-3 py-1 text-sm text-purple-400">
+            <span className="h-2 w-2 animate-pulse rounded-full bg-purple-500" />
+            {chain?.name || 'Unknown Network'}
+          </div>
+        )}
       </div>
+
+      {/* Wallet connection prompt */}
+      {!isConnected && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mx-auto mb-8 max-w-md rounded-xl border border-yellow-500/30 bg-gradient-to-r from-yellow-500/10 to-amber-500/10 p-6 text-center"
+        >
+          <Wallet className="mx-auto mb-3 h-12 w-12 text-yellow-500" />
+          <h3 className="mb-2 text-lg font-semibold text-yellow-500">Connect Your Wallet</h3>
+          <p className="mb-4 text-sm text-muted-foreground">
+            Connect your wallet to purchase packs with POL on Polygon Amoy testnet
+          </p>
+          <ConnectButton.Custom>
+            {({ openConnectModal }) => (
+              <Button
+                onClick={openConnectModal}
+                className="bg-gradient-to-r from-yellow-500 to-amber-600 text-white hover:from-yellow-600 hover:to-amber-700"
+              >
+                Connect Wallet
+              </Button>
+            )}
+          </ConnectButton.Custom>
+          
+          {/* Faucet link */}
+          <div className="mt-4 pt-4 border-t border-border/50">
+            <a 
+              href="https://faucet.polygon.technology/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground"
+            >
+              <AlertCircle className="h-3 w-3" />
+              Need testnet POL? Get it from the Polygon Faucet
+              <ExternalLink className="h-3 w-3" />
+            </a>
+          </div>
+        </motion.div>
+      )}
 
       {/* Pending Bonus Packs Notification */}
       {totalPendingPacks > 0 && (
@@ -161,10 +232,40 @@ export default function PacksPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 * index }}
           >
-            <PackCard pack={PACK_CONFIGS[type]} onBuy={() => handleBuyPack(type)} />
+            <PackCard 
+              pack={PACK_CONFIGS[type]} 
+              onBuy={() => handleBuyPack(type)}
+              isLoading={buyingPackType === type && isProcessing}
+              requiresWallet={!isConnected}
+            />
           </motion.div>
         ))}
       </div>
+
+      {/* Testnet info */}
+      {isConnected && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="mx-auto mt-8 max-w-xl text-center"
+        >
+          <div className="rounded-lg bg-muted/50 p-4">
+            <p className="text-sm text-muted-foreground">
+              🧪 <strong>Testnet Mode:</strong> Using Polygon Amoy testnet. 
+              Transactions require testnet POL.
+            </p>
+            <a 
+              href="https://faucet.polygon.technology/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="mt-2 inline-flex items-center gap-1 text-xs text-primary hover:underline"
+            >
+              Get free testnet POL from the faucet
+              <ExternalLink className="h-3 w-3" />
+            </a>
+          </div>
+        </motion.div>
+      )}
 
       {openingPack && (
         <PackOpening

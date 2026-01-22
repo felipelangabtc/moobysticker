@@ -63,8 +63,8 @@ export const PACK_CONFIGS: Record<PackType, PackConfig> = {
     type: 'basic',
     name: 'Basic Pack',
     stickerCount: 3,
-    price: '0.5',
-    priceDisplay: '0.5 MATIC',
+    price: '0.001',
+    priceDisplay: '0.001 POL',
     description: '3 stickers with a chance for rare upgrades',
     guarantees: [
       {
@@ -95,8 +95,8 @@ export const PACK_CONFIGS: Record<PackType, PackConfig> = {
     type: 'silver',
     name: 'Silver Pack',
     stickerCount: 5,
-    price: '1.5',
-    priceDisplay: '1.5 MATIC',
+    price: '0.002',
+    priceDisplay: '0.002 POL',
     description: '5 stickers with at least 1 Rare guaranteed',
     guarantees: [
       {
@@ -122,8 +122,8 @@ export const PACK_CONFIGS: Record<PackType, PackConfig> = {
     type: 'gold',
     name: 'Gold Pack',
     stickerCount: 7,
-    price: '3.0',
-    priceDisplay: '3 MATIC',
+    price: '0.005',
+    priceDisplay: '0.005 POL',
     description: '7 stickers with premium guarantees',
     guarantees: [
       {

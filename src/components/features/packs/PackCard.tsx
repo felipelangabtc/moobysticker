@@ -24,6 +24,7 @@ interface PackCardProps {
   onOpen?: () => void;
   ownedCount?: number;
   isLoading?: boolean;
+  requiresWallet?: boolean;
   className?: string;
 }
 
@@ -33,8 +34,14 @@ export function PackCard({
   onOpen,
   ownedCount = 0,
   isLoading = false,
+  requiresWallet = false,
   className,
 }: PackCardProps) {
+  const getButtonText = () => {
+    if (isLoading) return 'Processing...';
+    if (requiresWallet) return 'Connect Wallet';
+    return 'Buy with POL';
+  };
   return (
     <motion.div
       whileHover={{ y: -8 }}
@@ -128,10 +135,16 @@ export function PackCard({
           <Button
             onClick={onBuy}
             disabled={isLoading}
-            className="flex-1 bg-white text-black hover:bg-white/90"
+            className="flex-1 bg-white text-black hover:bg-white/90 disabled:opacity-70"
           >
-            {isLoading ? 'Processing...' : 'Buy Pack'}
+            {getButtonText()}
           </Button>
+        </div>
+
+        {/* Blockchain indicator */}
+        <div className="mt-3 flex items-center justify-center gap-1 text-xs text-white/50">
+          <span className="h-1.5 w-1.5 rounded-full bg-purple-400" />
+          Polygon Amoy
         </div>
 
         {/* Info button */}
