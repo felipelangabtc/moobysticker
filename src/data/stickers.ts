@@ -15,7 +15,8 @@ export type Category =
   | 'Prodigies' 
   | 'Masters' 
   | 'Elite' 
-  | 'Immortals';
+  | 'Immortals'
+  | 'OG';
 
 export interface Sticker {
   /** Unique token ID (1-300) */
