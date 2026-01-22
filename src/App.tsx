@@ -13,6 +13,7 @@ import { MainLayout } from '@/components/layout/MainLayout';
 import { Web3Provider } from '@/providers/Web3Provider';
 import HomePage from '@/pages/HomePage';
 import AlbumPage from '@/pages/AlbumPage';
+import OGPage from '@/pages/OGPage';
 import PacksPage from '@/pages/PacksPage';
 import NotFound from '@/pages/NotFound';
 
@@ -26,6 +27,7 @@ const App = () => (
           <Route element={<MainLayout />}>
             <Route path="/" element={<HomePage />} />
             <Route path="/album" element={<AlbumPage />} />
+            <Route path="/og" element={<OGPage />} />
             <Route path="/packs" element={<PacksPage />} />
             <Route path="/inventory" element={<AlbumPage />} />
             <Route path="/craft" element={<HomePage />} />
