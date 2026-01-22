@@ -15,6 +15,8 @@ import HomePage from '@/pages/HomePage';
 import AlbumPage from '@/pages/AlbumPage';
 import OGPage from '@/pages/OGPage';
 import PacksPage from '@/pages/PacksPage';
+import CraftPage from '@/pages/CraftPage';
+import RewardsPage from '@/pages/RewardsPage';
 import NotFound from '@/pages/NotFound';
 
 const App = () => (
@@ -30,8 +32,8 @@ const App = () => (
             <Route path="/og" element={<OGPage />} />
             <Route path="/packs" element={<PacksPage />} />
             <Route path="/inventory" element={<AlbumPage />} />
-            <Route path="/craft" element={<HomePage />} />
-            <Route path="/rewards" element={<HomePage />} />
+            <Route path="/craft" element={<CraftPage />} />
+            <Route path="/rewards" element={<RewardsPage />} />
             <Route path="/history" element={<HomePage />} />
           </Route>
           <Route path="*" element={<NotFound />} />
