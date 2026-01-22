@@ -4,13 +4,15 @@
  */
 
 import { motion } from 'framer-motion';
-import { ShoppingCart, User, Clock } from 'lucide-react';
+import { ShoppingCart, User, Clock, ExternalLink } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { RarityBadge } from '@/components/ui/rarity-badge';
 import type { MarketplaceListing } from '@/stores/marketplaceStore';
 import { formatDistanceToNow } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
+import { getOpenSeaAssetUrl } from '@/lib/opensea';
+import { useAccount } from 'wagmi';
 
 interface ListingCardProps {
   listing: MarketplaceListing;
@@ -34,6 +36,9 @@ const RARITY_BORDERS: Record<string, string> = {
 };
 
 export function ListingCard({ listing, onBuy, isOwner, onCancel }: ListingCardProps) {
+  const { chain } = useAccount();
+  const openSeaUrl = getOpenSeaAssetUrl(listing.stickerId, chain?.id);
+
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.95 }}
@@ -46,6 +51,19 @@ export function ListingCard({ listing, onBuy, isOwner, onCancel }: ListingCardPr
         <Badge className="absolute top-2 left-2 z-10 bg-amber-500/90 text-white border-0 text-xs">
           OG
         </Badge>
+      )}
+
+      {/* OpenSea Link */}
+      {openSeaUrl !== '#' && (
+        <a
+          href={openSeaUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="absolute top-2 right-2 z-10 p-1.5 rounded-full bg-blue-500/80 text-white hover:bg-blue-600 transition-colors"
+          title="Ver na OpenSea"
+        >
+          <ExternalLink className="h-3 w-3" />
+        </a>
       )}
 
       {/* Sticker Image */}
@@ -85,7 +103,7 @@ export function ListingCard({ listing, onBuy, isOwner, onCancel }: ListingCardPr
         <div className="flex items-center justify-between gap-2 pt-2 border-t border-border/50">
           <div className="flex flex-col">
             <span className="text-xs text-muted-foreground">Preço</span>
-            <span className="font-bold text-primary">{listing.price} MATIC</span>
+            <span className="font-bold text-primary">{listing.price} POL</span>
           </div>
           
           {isOwner ? (
