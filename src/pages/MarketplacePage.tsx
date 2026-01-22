@@ -11,6 +11,7 @@ import { useMarketplaceStore } from '@/stores/marketplaceStore';
 import { useAlbumStore } from '@/stores/albumStore';
 import { ListingCard } from '@/components/features/marketplace/ListingCard';
 import { CreateListingModal } from '@/components/features/marketplace/CreateListingModal';
+import { SalesHistory } from '@/components/features/marketplace/SalesHistory';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -383,6 +384,9 @@ export default function MarketplacePage() {
             </p>
           </motion.div>
         )}
+
+        {/* Sales History */}
+        <SalesHistory />
 
         {/* Create Listing Modal */}
         <CreateListingModal
