@@ -1,7 +1,9 @@
 /**
  * Album Page - View sticker collection
- * Page 1: OG Collection (50 stickers)
+ * Page 1: OG's Mooby (50 stickers)
  * Pages 2-11: Season 1 Categories (30 stickers each)
+ *   - Mooby Heroes, Pets and Mounts, Cities and Islands, Professions,
+ *   - Monsters, Mini Bosses, Bosses, Items and Equipments, Battles, Skills and Stats
  */
 
 import { useState } from 'react';
@@ -16,17 +18,17 @@ import { ChevronLeft, ChevronRight, Crown, Sparkles } from 'lucide-react';
 
 // Page 1 = OG, Pages 2-11 = Season 1 categories
 const PAGES_LIST = [
-  { name: 'OG Collection', isOG: true, stickerCount: 50 },
-  { name: 'Legends', isOG: false, stickerCount: 30 },
-  { name: 'Rising Stars', isOG: false, stickerCount: 30 },
-  { name: 'Champions', isOG: false, stickerCount: 30 },
-  { name: 'Hall of Fame', isOG: false, stickerCount: 30 },
-  { name: 'World Class', isOG: false, stickerCount: 30 },
-  { name: 'Icons', isOG: false, stickerCount: 30 },
-  { name: 'Prodigies', isOG: false, stickerCount: 30 },
-  { name: 'Masters', isOG: false, stickerCount: 30 },
-  { name: 'Elite', isOG: false, stickerCount: 30 },
-  { name: 'Immortals', isOG: false, stickerCount: 30 },
+  { name: "OG's Mooby", isOG: true, stickerCount: 50 },
+  { name: 'Mooby Heroes', isOG: false, stickerCount: 30 },
+  { name: 'Pets and Mounts', isOG: false, stickerCount: 30 },
+  { name: 'Cities and Islands', isOG: false, stickerCount: 30 },
+  { name: 'Professions', isOG: false, stickerCount: 30 },
+  { name: 'Monsters', isOG: false, stickerCount: 30 },
+  { name: 'Mini Bosses', isOG: false, stickerCount: 30 },
+  { name: 'Bosses', isOG: false, stickerCount: 30 },
+  { name: 'Items and Equipments', isOG: false, stickerCount: 30 },
+  { name: 'Battles', isOG: false, stickerCount: 30 },
+  { name: 'Skills and Stats', isOG: false, stickerCount: 30 },
 ];
 
 const TOTAL_ALL_STICKERS = 350; // 50 OG + 300 Season 1
