@@ -5,8 +5,10 @@
 
 import { Outlet } from 'react-router-dom';
 import { Header } from './Header';
+import { useTranslation } from '@/hooks/useTranslation';
 
 export function MainLayout() {
+  const t = useTranslation();
   return (
     <div className="flex min-h-screen flex-col bg-background">
       <Header />
@@ -16,7 +18,7 @@ export function MainLayout() {
       {/* Footer */}
       <footer className="border-t border-border/50 py-6">
         <div className="container mx-auto px-4 text-center text-sm text-muted-foreground">
-          <p>© 2024 NFT Sticker Album. Season 1 - Powered by Polygon.</p>
+          <p>{t.footer.copyright} - {t.footer.poweredBy} Polygon.</p>
         </div>
       </footer>
     </div>

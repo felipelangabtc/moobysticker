@@ -17,6 +17,7 @@ import { PAGE_REWARDS, SPECIAL_REWARDS, type Reward } from '@/data/rewards';
 import { useProgress } from '@/stores/albumStore';
 import { SEASON_1_STICKERS } from '@/data/stickers';
 import { cn } from '@/lib/utils';
+import { useTranslation } from '@/hooks/useTranslation';
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Trophy,

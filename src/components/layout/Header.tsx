@@ -23,25 +23,28 @@ import {
 } from 'lucide-react';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { useAccount } from 'wagmi';
-
-const navItems = [
-  { path: '/', label: 'Home', icon: BookOpen },
-  { path: '/album', label: 'Album', icon: BookOpen },
-  { path: '/packs', label: 'Packs', icon: Package },
-  { path: '/inventory', label: 'Inventory', icon: Backpack },
-  { path: '/marketplace', label: 'Market', icon: Store },
-  { path: '/craft', label: 'Craft', icon: Flame },
-  { path: '/rewards', label: 'Rewards', icon: Trophy },
-  { path: '/history', label: 'History', icon: History },
-];
+import { useTranslation } from '@/hooks/useTranslation';
+import { LanguageToggle } from '@/components/ui/language-toggle';
 
 export function Header() {
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const progress = useProgress();
+  const t = useTranslation();
   
   // Real wallet connection state from wagmi
   const { isConnected } = useAccount();
+
+  const navItems = [
+    { path: '/', label: t.common.home, icon: BookOpen },
+    { path: '/album', label: t.common.album, icon: BookOpen },
+    { path: '/packs', label: t.common.packs, icon: Package },
+    { path: '/inventory', label: t.common.inventory, icon: Backpack },
+    { path: '/marketplace', label: t.common.marketplace, icon: Store },
+    { path: '/craft', label: t.common.craft, icon: Flame },
+    { path: '/rewards', label: t.common.rewards, icon: Trophy },
+    { path: '/history', label: t.common.history, icon: History },
+  ];
 
   return (
     <header className="sticky top-0 z-50 border-b border-border/50 bg-background/80 backdrop-blur-xl">
@@ -80,6 +83,8 @@ export function Header() {
 
         {/* Right section */}
         <div className="flex items-center gap-3">
+          <LanguageToggle />
+
           {/* Progress indicator (when connected) */}
           {isConnected && (
             <div className="hidden items-center gap-2 rounded-lg bg-muted/50 px-3 py-1.5 sm:flex">

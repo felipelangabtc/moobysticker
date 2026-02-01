@@ -9,6 +9,7 @@ import { STICKERS_BY_ID } from '@/data/stickers';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { useTranslation } from '@/hooks/useTranslation';
 import {
   Table,
   TableBody,
@@ -59,6 +60,7 @@ function formatTimeAgo(timestamp: number): string {
 export default function HistoryPage() {
   const recentOpenings = useAlbumStore((state) => state.recentOpenings);
   const clearRecentOpenings = useAlbumStore((state) => state.clearRecentOpenings);
+  const t = useTranslation();
 
   const totalPacks = recentOpenings.length;
   const totalStickers = recentOpenings.reduce((acc, o) => acc + o.stickers.length, 0);
@@ -83,12 +85,12 @@ export default function HistoryPage() {
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="text-center mb-8"
+        className="mb-8 flex flex-col gap-4 md:flex-row md:items-center md:justify-between"
       >
-        <div className="inline-flex items-center gap-3 mb-4">
-          <div className="p-3 rounded-xl bg-primary/20">
-            <History className="w-8 h-8 text-primary" />
-          </div>
+        <div>
+          <h1 className="font-display text-3xl font-bold">{t.history.title}</h1>
+          <p className="text-muted-foreground">{t.history.subtitle}</p>
+        </div>
           <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-purple-400 bg-clip-text text-transparent">
             Histórico
           </h1>

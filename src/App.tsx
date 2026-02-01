@@ -11,6 +11,7 @@ import { TooltipProvider } from '@/components/ui/tooltip';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { MainLayout } from '@/components/layout/MainLayout';
 import { Web3Provider } from '@/providers/Web3Provider';
+import { LanguageProvider } from '@/providers/LanguageProvider';
 import HomePage from '@/pages/HomePage';
 import AlbumPage from '@/pages/AlbumPage';
 import OGPage from '@/pages/OGPage';
@@ -24,10 +25,11 @@ import NotFound from '@/pages/NotFound';
 
 const App = () => (
   <Web3Provider>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
+    <LanguageProvider>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
         <Routes>
           <Route element={<MainLayout />}>
             <Route path="/" element={<HomePage />} />
@@ -43,7 +45,8 @@ const App = () => (
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
-    </TooltipProvider>
+      </TooltipProvider>
+    </LanguageProvider>
   </Web3Provider>
 );
 

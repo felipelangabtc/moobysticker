@@ -14,6 +14,7 @@ import { RARITY_CONFIG } from '@/config/constants';
 import { useDuplicates } from '@/stores/albumStore';
 import type { Rarity } from '@/data/stickers';
 import { cn } from '@/lib/utils';
+import { useTranslation } from '@/hooks/useTranslation';
 
 const rarityColors: Record<Rarity, string> = {
   common: 'from-slate-500 to-slate-700',
@@ -210,9 +211,10 @@ function CraftSuccessModal({ isOpen, recipe, onClose }: { isOpen: boolean; recip
 }
 
 export default function CraftPage() {
-  const [isProcessing, setIsProcessing] = useState<string | null>(null);
-  const [showSuccess, setShowSuccess] = useState(false);
-  const [lastCraftedRecipe, setLastCraftedRecipe] = useState<CraftRecipe | null>(null);
+  const [selectedRecipe, setSelectedRecipe] = useState<CraftRecipe | null>(null);
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [craftedSticker, setCraftedSticker] = useState<number | null>(null);
+  const t = useTranslation();
   
   const duplicates = useDuplicates();
 

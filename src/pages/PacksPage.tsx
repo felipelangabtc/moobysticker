@@ -15,12 +15,14 @@ import { useAlbumStore } from '@/stores/albumStore';
 import { toast } from 'sonner';
 import { OG_STICKERS } from '@/data/ogStickers';
 import { usePackPurchase } from '@/hooks/usePackPurchase';
+import { useTranslation } from '@/hooks/useTranslation';
 import { Wallet, AlertCircle, ExternalLink } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export default function PacksPage() {
   const { isConnected, address, chain } = useAccount();
   const { purchasePack, isProcessing, status, reset } = usePackPurchase();
+  const t = useTranslation();
   
   const [openingPack, setOpeningPack] = useState<{ type: string; stickers: number[] } | null>(null);
   const [pendingPacks, setPendingPacks] = useState<{ gold: number; silver: number; basic: number }>({
@@ -33,7 +35,7 @@ export default function PacksPage() {
 
   const handleBuyPack = async (packType: string) => {
     if (!isConnected) {
-      toast.error('Please connect your wallet first');
+      toast.error(t.errors.walletNotConnected);
       return;
     }
 
@@ -74,7 +76,7 @@ export default function PacksPage() {
     });
     
     setOpeningPack({ type: 'og', stickers });
-    toast.success(`OG Holder Pack claimed with Token #${tokenId}!`);
+    toast.success(t.og.claimSuccess);
   };
 
   const handleOpeningComplete = () => {

@@ -9,9 +9,11 @@ import { StickerCard } from '@/components/features/sticker/StickerCard';
 import { ProgressBar } from '@/components/ui/progress-ring';
 import { Badge } from '@/components/ui/badge';
 import { Crown, Star, Sparkles } from 'lucide-react';
+import { useTranslation } from '@/hooks/useTranslation';
 
 export default function OGPage() {
   const balances = useAlbumStore((state) => state.balances);
+  const t = useTranslation();
   
   // Calculate OG progress (OG stickers use negative IDs or separate namespace)
   // For now, using IDs 1000+ for OG stickers to avoid collision
@@ -34,17 +36,17 @@ export default function OGPage() {
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h1 className="font-display text-3xl font-bold text-gradient-gold">
-                  OG Collection
-                </h1>
-                <Badge variant="outline" className="border-yellow-500/50 text-yellow-500">
-                  <Sparkles className="mr-1 h-3 w-3" />
-                  Exclusive
-                </Badge>
-              </div>
-              <p className="text-muted-foreground">
-                50 Original stickers for early adopters
-              </p>
+              <h1 className="font-display text-3xl font-bold text-gradient-gold">
+                {t.og.ogStickers}
+              </h1>
+              <Badge variant="outline" className="border-yellow-500/50 text-yellow-500">
+                <Sparkles className="mr-1 h-3 w-3" />
+                {t.og.limitedEdition}
+              </Badge>
+            </div>
+            <p className="text-muted-foreground">
+              {t.og.ogStickersDesc}
+            </p>
             </div>
           </div>
           <div className="flex items-center gap-4">

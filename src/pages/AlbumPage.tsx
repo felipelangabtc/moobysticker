@@ -15,6 +15,7 @@ import { ProgressBar } from '@/components/ui/progress-ring';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { ChevronLeft, ChevronRight, Crown, Sparkles } from 'lucide-react';
+import { useTranslation } from '@/hooks/useTranslation';
 
 // Page 1 = OG, Pages 2-11 = Season 1 categories
 const PAGES_LIST = [
@@ -37,6 +38,7 @@ export default function AlbumPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const balances = useAlbumStore((state) => state.balances);
   const progress = useProgress();
+  const t = useTranslation();
   
   // For pages 2-11, use the original page stickers (adjusted index)
   const seasonPageStickers = usePageStickers(currentPage > 1 ? currentPage - 1 : 1);
@@ -72,9 +74,9 @@ export default function AlbumPage() {
       {/* Header */}
       <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div>
-          <h1 className="font-display text-3xl font-bold">My Album</h1>
+          <h1 className="font-display text-3xl font-bold">{t.album.title}</h1>
           <p className="text-muted-foreground">
-            {totalCollected}/{TOTAL_ALL_STICKERS} collected
+            {totalCollected}/{TOTAL_ALL_STICKERS} {t.album.collected.toLowerCase()}
           </p>
         </div>
         <ProgressBar

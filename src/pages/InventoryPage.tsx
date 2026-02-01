@@ -17,6 +17,7 @@ import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import type { Rarity } from '@/data/stickers';
+import { useTranslation } from '@/hooks/useTranslation';
 
 type FilterType = 'all' | 'duplicates' | 'unique' | Rarity;
 type SortType = 'id' | 'rarity' | 'quantity' | 'name';
@@ -46,6 +47,7 @@ export default function InventoryPage() {
   const navigate = useNavigate();
   const balances = useAlbumStore((state) => state.balances);
   const duplicates = useDuplicates();
+  const t = useTranslation();
   const [filter, setFilter] = useState<FilterType>('all');
   const [sort, setSort] = useState<SortType>('rarity');
   const [showOG, setShowOG] = useState<'all' | 'season1' | 'og'>('all');
