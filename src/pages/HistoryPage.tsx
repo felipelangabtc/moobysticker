@@ -91,10 +91,9 @@ export default function HistoryPage() {
           <h1 className="font-display text-3xl font-bold">{t.history.title}</h1>
           <p className="text-muted-foreground">{t.history.subtitle}</p>
         </div>
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-purple-400 bg-clip-text text-transparent">
-            Histórico
-          </h1>
-        </div>
+        <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-purple-400 bg-clip-text text-transparent">
+          Histórico
+        </h1>
         <p className="text-muted-foreground">
           Veja todas as suas aberturas de pacotes e transações
         </p>
