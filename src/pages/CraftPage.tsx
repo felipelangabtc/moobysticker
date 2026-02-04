@@ -212,8 +212,9 @@ function CraftSuccessModal({ isOpen, recipe, onClose }: { isOpen: boolean; recip
 
 export default function CraftPage() {
   const [selectedRecipe, setSelectedRecipe] = useState<CraftRecipe | null>(null);
-  const [isProcessing, setIsProcessing] = useState(false);
-  const [craftedSticker, setCraftedSticker] = useState<number | null>(null);
+  const [isProcessing, setIsProcessing] = useState<string | null>(null);
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [lastCraftedRecipe, setLastCraftedRecipe] = useState<CraftRecipe | null>(null);
   const t = useTranslation();
   
   const duplicates = useDuplicates();
